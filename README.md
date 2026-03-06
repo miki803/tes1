@@ -301,3 +301,112 @@ views
 │   ├ mypage.blade.php
 │   └ edit.blade.php
 ```
+
+Laravelでフリマアプリを作る順番
+**① テーブルを作る（Migration）**
+```
+まず DBだけ作る。
+users
+products
+comments
+favorites
+purchases
+
+例
+php artisan make:migration create_products_table
+ここでは
+商品名
+価格
+説明
+出品者
+だけ考えればOKです。
+まだ Controller は作らなくて大丈夫です。
+```
+**② Modelを作る**
+```
+テーブルができたら Modelを作る。
+php artisan make:model Product
+php artisan make:model Comment
+php artisan make:model Favorite
+php artisan make:model Purchase
+この時点では
+class Product extends Model
+{
+}
+だけでOKです。
+```
+**③ 商品一覧を作る（最初の機能）**
+```
+いきなり全部作らないで 1ページだけ作る。
+Route
+Route::get('/', [ProductController::class,'index']);
+Controller
+public function index()
+{
+    $products = Product::all();
+
+    return view('index', compact('products'));
+}
+View
+@foreach($products as $product)
+    <p>{{ $product->name }}</p>
+@endforeach
+
+ここでDB → 画面が繋がります。
+これが 最初の成功体験です。
+```
+**④ 商品詳細**
+```
+次は詳細ページ。
+Route
+Route::get('/item/{id}', [ProductController::class,'show']);
+
+Controller
+public function show($id)
+{
+    $product = Product::find($id);
+
+    return view('item', compact('product'));
+}
+
+View
+<h1>{{ $product->name }}</h1>
+<p>{{ $product->price }}</p>
+```
+**⑤ 出品機能**
+```
+Route
+Route::get('/sell',[ProductController::class,'create']);
+Route::post('/sell',[ProductController::class,'store']);
+
+Controller
+public function store(Request $request)
+{
+    Product::create($request->all());
+
+    return redirect('/');
+}
+```
+**⑥ コメント**
+```
+php artisan make:model Comment
+php artisan make:controller CommentController
+
+Controller
+Comment::create([
+    'user_id'=>auth()->id(),
+    'product_id'=>$id,
+    'comment'=>$request->comment
+]);
+```
+**⑦ いいね**
+```
+Favorite::create([
+    'user_id'=>auth()->id(),
+    'product_id'=>$id
+]);
+```
+**⑧ 購入**
+```
+最後にpurchases テーブルを使います。
+```
