@@ -96,6 +96,7 @@ updated_at	timestamp
 ```
 
 **① 認証まわり**
+```text
 会員登録
 /register
 ↓
@@ -112,8 +113,9 @@ Fortify
 users
 ↓
 auth/login.blade.php
-
+```
 **② 商品一覧（トップ）**
+```text
 URL
 /
 /?tab=mylist
@@ -128,8 +130,9 @@ products/index.blade.php
 関係するテーブル
 products
 favorites
-
+```
 **③ 商品詳細**
+```text
 /item/{id}
 ↓
 ProductController@show
@@ -149,8 +152,9 @@ products/show.blade.php
 products
 comments
 favorites
-
+```
 **④ コメント機能**
+```text
 POST /comment
 ↓
 CommentController@store
@@ -158,16 +162,18 @@ CommentController@store
 comments テーブル保存
 ↓
 商品詳細にリダイレクト
-
+```
 **⑤ いいね機能**
+```text
 POST /favorite
 ↓
 FavoriteController@store
 ↓
 favorites テーブル
 または削除で解除。
-
+```
 **⑥ 出品**
+```text
 /sell
 ↓
 ProductController@create
@@ -185,8 +191,9 @@ storage に画像保存
 
 関係テーブル
 products
-
+```
 **⑦ 購入**
+```text
 表示：
 /purchase/{id}
 ↓
@@ -208,8 +215,9 @@ purchases テーブル
 関係テーブル
 purchases
 products
-
+```
 **⑧ 住所変更**
+```text
 /purchase/address/{id}
 ↓
 PurchaseController@editAddress
@@ -220,8 +228,9 @@ purchase/address.blade.php
 POST /purchase/address
 ↓
 addresses or users更新
-
+```
 **⑨ マイページ**
+```text
 /mypage
 /mypage?page=buy
 /mypage?page=sell
@@ -233,8 +242,9 @@ products
 purchases
 ↓
 profile/mypage.blade.php
-
+```
 **⑩ プロフィール編集**
+```text
 /mypage/profile
 ↓
 ProfileController@edit
@@ -247,8 +257,9 @@ POST /mypage/profile
 ProfileController@update
 ↓
 users テーブル
-
+```
 **⑪ Model一覧（最小構成）**
+```text
 User
 Product
 Purchase
@@ -261,15 +272,17 @@ User
  ├ Purchases（購入）
  ├ Favorites
  └ Comments
-
+```
 **⑫ Controller一覧（おすすめ）**
+```text
 ProductController
 PurchaseController
 ProfileController
 FavoriteController
 CommentController
-
+```
 **⑬ View構成（整理版）**
+```text
 views
 ├ auth
 │   ├ login.blade.php
@@ -287,3 +300,4 @@ views
 ├ profile
 │   ├ mypage.blade.php
 │   └ edit.blade.php
+```
