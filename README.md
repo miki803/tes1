@@ -275,11 +275,11 @@ User
 ```
 **⑫ Controller一覧（おすすめ）**
 ```text
-ProductController
-PurchaseController
-ProfileController
-FavoriteController
-CommentController
+php artisan make:controller ProductController
+php artisan make:controller PurchaseController
+php artisan make:controller ProfileController
+php artisan make:controller FavoriteController
+php artisan make:controller CommentController
 ```
 **⑬ View構成（整理版）**
 ```text
@@ -321,6 +321,7 @@ php artisan make:migration create_products_table
 出品者
 だけ考えればOKです。
 まだ Controller は作らなくて大丈夫です。
+php artisan migrate
 ```
 **② Modelを作る**
 ```
